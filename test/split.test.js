@@ -1,10 +1,10 @@
-const Split = require("../split");
+const Parse = require("../Parse");
 const testData = require("./testData");
 
-describe("test split class", () => {
+describe("test Parse class", () => {
   test("test normalData", () => {
     const normalData = testData.normalData;
-    const splitResult = new Split(normalData.inputData);
+    const splitResult = new Parse(normalData.inputData);
     expect(splitResult.textVal).toEqual(normalData.splitTextVal);
     expect(splitResult.errInfo).toBeNull();
     expect(splitResult.promotionInfo).toEqual(normalData.splitPromotionInfo);
@@ -15,28 +15,28 @@ describe("test split class", () => {
 
   test("test lackGoodsData", () => {
     const lackGoodsData = testData.lackGoodsData;
-    const splitResult = new Split(lackGoodsData.inputData);
+    const splitResult = new Parse(lackGoodsData.inputData);
     expect(splitResult.textVal).toEqual(lackGoodsData.splitTextVal);
     expect(splitResult.errInfo).toBe(lackGoodsData.splitErrInfo);
   });
 
   test("test lackGoodsData", () => {
     const lackGoodsData = testData.lackGoodsData;
-    const splitResult = new Split(lackGoodsData.inputData);
+    const splitResult = new Parse(lackGoodsData.inputData);
     expect(splitResult.textVal).toEqual(lackGoodsData.splitTextVal);
     expect(splitResult.errInfo).toBe(lackGoodsData.splitErrInfo);
   });
 
   test("test lackClosingData", () => {
     const lackClosingData = testData.lackClosingData;
-    const splitResult = new Split(lackClosingData.inputData);
+    const splitResult = new Parse(lackClosingData.inputData);
     expect(splitResult.textVal).toEqual(lackClosingData.splitTextVal);
     expect(splitResult.errInfo).toBe(lackClosingData.splitErrInfo);
   });
 
   test("test nullData", () => {
     const nullData = testData.nullData;
-    const splitResult = new Split(nullData.inputData);
+    const splitResult = new Parse(nullData.inputData);
     expect(splitResult.textVal).toBe("");
     expect(splitResult.errInfo).toBe(nullData.splitErrInfo);
     expect(splitResult.promotionInfo).toBeNull();
@@ -46,14 +46,14 @@ describe("test split class", () => {
   });
 
   test("test setErrorInfo", () => {
-    const splitResult = new Split();
+    const splitResult = new Parse();
     const testStr = "测试";
     splitResult.setErrorInfo(testStr);
     expect(splitResult.errInfo).toBe(testStr);
   });
 
   test("test isDate", () => {
-    const { isDate } = new Split();
+    const { isDate } = new Parse();
     const correctDateStr = "2022.1.1";
     const errDateStr = "2022.111.1";
     const nullDateStr = "";

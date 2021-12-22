@@ -1,4 +1,4 @@
-class Split {
+class Parse {
     constructor(val) {
       this.textVal = val;
       this.transformData();
@@ -18,6 +18,8 @@ class Split {
     closingDateInfo = null;
     // 优惠券信息
     couponInfo = null;
+    // 会员信息
+    memberInfo = null;
     
     // 处理错误信息
     setErrorInfo (val) {
@@ -36,6 +38,7 @@ class Split {
         this.getGoodsInfo();
         this.getCouponInfo();
         this.getClosingDateInfo();
+        this.getMemberInfo();
     }
 
     // 判断是否为正确日期
@@ -88,7 +91,7 @@ class Split {
 
     // 获取 优惠券信息
     getCouponInfo () {
-        const regex = /^\d{4}.\d{1,2}.\d{1,2}\s\d+\s\d+$/;
+        const regex = /^\d{4}.\d{1,2}.\d{1,2}\s\d+\s\d+\s[\s\S]+$/;
 
         const strArr = this.textVal.split('\n').map(res => res.trim());
 
@@ -99,8 +102,9 @@ class Split {
                 date: resArr[0], // 日期
                 threshold: resArr[1], // 门槛
                 couponNum: resArr[2], // 优惠金额
+                type: resArr[3], // 类目类型
             }
-        }).filter(res => this.isDate(res.date))[0];
+        }).filter(res => this.isDate(res.date));
 
         this.couponInfo = resultArr
     }
@@ -119,11 +123,21 @@ class Split {
 
         this.closingDateInfo = resultArr[0];
     }
+    // 获取会员信息
+    getMemberInfo () {
+      const regex = /[SGU][\s\S]+/;
+
+      const strArr = this.textVal.split('\n').map(res => res.trim());
+
+      const result = strArr.filter(res => regex.test(res))[0];
+      
+      this.memberInfo = result;
+    }
 };
 
 // 解决 node 与 浏览器环境不一样问题
 var window;
 
 if (!window) {
-    module.exports = Split;
+    module.exports = Parse;
 }

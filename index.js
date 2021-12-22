@@ -4,7 +4,7 @@ const checkout = function () {
 
   const val = inputDom.value;
 
-  const splitResultObj = new Split(val);
+  const splitResultObj = new Parse(val);
 
   const { errInfo } = splitResultObj;
 
@@ -13,8 +13,13 @@ const checkout = function () {
     return;
   }
 
-  const { result } = new Calc(splitResultObj, mockData);
-  setResult(`金额为${result}`);
+  const memberObj = new Member(splitResultObj.memberInfo);
+
+  const discount = memberObj.getMemberDiscount();
+
+  const calcResult = new Calc(splitResultObj, mockData, discount);
+  console.log("🚀 ~ file: index.js ~ line 21 ~ checkout ~ calcResult", calcResult)
+  setResult(`金额为${calcResult.result}`);
 };
 
 const setResult = function (val) {

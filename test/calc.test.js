@@ -1,12 +1,12 @@
 const Calc = require("../calc");
-const Split = require("../split");
+const Parse = require("../Parse");
 const mockData = require("../mock");
 const testData = require("./testData");
 
 describe("test calc class", () => {
   test("test normalData", () => {
     const normalData = testData.normalData;
-    const splitResultObj = new Split(normalData.inputData);
+    const splitResultObj = new Parse(normalData.inputData);
     const calcResult = new Calc(splitResultObj, mockData);
     expect(calcResult.result).toBe(normalData.calcResult);
     expect(calcResult.goodsData).toEqual(normalData.calcGoodsData);
@@ -14,7 +14,7 @@ describe("test calc class", () => {
   
   test("test lackGoodsData", () => {
     const lackGoodsData = testData.lackGoodsData;
-    const splitResultObj = new Split(lackGoodsData.inputData);
+    const splitResultObj = new Parse(lackGoodsData.inputData);
     const calcResult = new Calc(splitResultObj, mockData);
     expect(calcResult.result).toBeNull();
     expect(calcResult.goodsData).toBeNull();
@@ -22,7 +22,7 @@ describe("test calc class", () => {
   
   test("test lackClosingData", () => {
     const lackClosingData = testData.lackClosingData;
-    const splitResultObj = new Split(lackClosingData.inputData);
+    const splitResultObj = new Parse(lackClosingData.inputData);
     const calcResult = new Calc(splitResultObj, mockData);
     expect(calcResult.result).toBeNull();
     expect(calcResult.goodsData).toBeNull();
@@ -30,7 +30,7 @@ describe("test calc class", () => {
   
   test("test nullData", () => {
     const nullData = testData.nullData;
-    const splitResultObj = new Split(nullData.inputData);
+    const splitResultObj = new Parse(nullData.inputData);
     const calcResult = new Calc(splitResultObj, mockData);
     expect(calcResult.result).toBeNull();
     expect(calcResult.goodsData).toBeNull();
